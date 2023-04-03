@@ -44,12 +44,12 @@ const OrderAside = ({showCart,setShowCart, userData,cartShopping, setCartShoppin
 
     const showTotal = (value) => {
         let total = 0;
-        if(value === 'shoppingCart'){
-            cartShopping?.map((item) => {
+        if(value === 'userCart'){
+            user.cart?.map((item) => {
                 total += item.price * item.quantity;
             })
         }else{
-            user.cart?.map((item) => {
+            cartShopping?.map((item) => {
                 total += item.price * item.quantity;
             })
         }
@@ -136,7 +136,7 @@ const OrderAside = ({showCart,setShowCart, userData,cartShopping, setCartShoppin
                 <section className='order-list'>
                     {
                         //save button is true show saved by user user.cart.map else show cart cartShopping.map
-                        saveButton ? cartShopping?.map((item) => (
+                        saveButton ? user?.cart?.map((item) => (
 
                         <div className="shopping-cart" key={item.id}>
                             <figure>
@@ -147,7 +147,7 @@ const OrderAside = ({showCart,setShowCart, userData,cartShopping, setCartShoppin
                             <p>{ item.quantity}</p>
                             <img className='close-icon' src={closeIcon}  alt="close" onClick={() => handleRemove(item.id)}/>
                         </div>
-                    )) : user?.cart?.map((item) => (
+                    )) : cartShopping?.map((item) => (
                         <div className="shopping-cart" key={item.id}>
                         <figure>
                         <img src={item.image} alt="product" />
@@ -170,7 +170,7 @@ const OrderAside = ({showCart,setShowCart, userData,cartShopping, setCartShoppin
                         <p>
                         <span>Total</span>
                         </p>
-                        {saveButton ? <p>${showTotal('shoppingCart')} MXN</p> : <p>${showTotal('userCart')} MXN</p>}
+                        {saveButton ? <p>${showTotal('userCart')} MXN</p> : <p>${showTotal('shoppingCart')} MXN</p>}
                     </div>
 
                     <button className="primary-button">
