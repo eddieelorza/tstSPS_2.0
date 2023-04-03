@@ -145,7 +145,7 @@ const OrderAside = ({showCart,setShowCart, userData,cartShopping, setCartShoppin
                             <p>{ `${item.title.slice(0, 10)}...`}</p>
                             <p>{ item.price}</p>
                             <p>{ item.quantity}</p>
-                            <img className='close-icon' src={closeIcon}  alt="close" onClick={() => handleRemove(item.id)}/>
+                            <img className='close-icon' src={closeIcon}  alt="close" onClick={() =>deleteItem(item.id)}/>
                         </div>
                     )) : cartShopping?.map((item) => (
                         <div className="shopping-cart" key={item.id}>
@@ -155,7 +155,7 @@ const OrderAside = ({showCart,setShowCart, userData,cartShopping, setCartShoppin
                         <p>{ `${item.title.slice(0, 10)}...`}</p>
                         <p>{ item.price}</p>
                         <p>{ item.quantity}</p>
-                        <img className='close-icon' src={closeIcon}  alt="close" onClick={() => deleteItem(item.id)}/>
+                        <img className='close-icon' src={closeIcon}  alt="close" onClick={() => handleRemove(item.id)}/>
                     </div>
                     ))
                     }
