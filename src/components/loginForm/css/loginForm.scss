@@ -1,0 +1,55 @@
+
+
+.login-container{
+    display: grid;
+    place-items: center;
+    height: 100vh;
+}
+
+.container-wrapper{
+    width: 100%;
+    max-width: 40rem;
+    border-radius: 10px;
+    border: 1px solid #383838;
+    padding: 2rem;
+    position: relative;
+
+
+    
+
+
+    .login-icon{
+        width: 30px;
+        height: 30px;
+    }
+
+    .input-login{
+        width: 100%;
+        height: 50px;
+        border-radius: 5px;
+        padding: 0 1rem;
+        background: transparent;
+        margin-bottom: 10px;
+        input{
+            color: #ee1818;
+            border: none;
+            background: transparent;
+            outline: none;
+            box-shadow: none;
+
+            &:fucus{
+                box-shadow: none;
+            }
+        }
+    }
+}
+
+
+.logo-login{
+    position: absolute;
+    top: 15rem;
+
+    width: 15rem;
+    margin-bottom: 1rem;
+    z-index: 1;
+}

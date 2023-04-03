@@ -1,0 +1,16 @@
+.input-wrapper{
+    background: #383838;
+    width: 35rem !important;
+    height: 3.5rem;
+    margin: 1.6rem;
+   
+    input{
+        background: transparent;
+        color: #fff;
+        &:focus{
+            background: transparent;
+            color: #fff;
+            box-shadow: none;
+        }
+    }
+}
