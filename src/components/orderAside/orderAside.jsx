@@ -54,10 +54,9 @@ const OrderAside = ({showCart,setShowCart, userData,cartShopping, setCartShoppin
             })
         }
         
-        return total;
+        return Math.round(total * 100) / 100;
     };
 
-    // delete by iduser AND idproduct
     const deleteItem = async (idProduct) => {
        const idUser = user.uid;
 
@@ -83,7 +82,6 @@ const OrderAside = ({showCart,setShowCart, userData,cartShopping, setCartShoppin
 
     }
 
-    //if click on save button show saved by user else show cart
     const filterButton = () => {
         setSaveButton(!saveButton);
         setShoppingCartButton(!shoppingCartButton);
@@ -172,7 +170,7 @@ const OrderAside = ({showCart,setShowCart, userData,cartShopping, setCartShoppin
                         <p>
                         <span>Total</span>
                         </p>
-                        {saveButton ? <p>{showTotal('shoppingCart')}</p> : <p>{showTotal('userCart')}</p>}
+                        {saveButton ? <p>${showTotal('shoppingCart')} MXN</p> : <p>${showTotal('userCart')} MXN</p>}
                     </div>
 
                     <button className="primary-button">
