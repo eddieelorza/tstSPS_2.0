@@ -11,10 +11,12 @@ import { auth} from '../../firebase.js';
 
 
 
-const OrderAside = ({showCart,setShowCart, userData}) => {
+const OrderAside = ({showCart,setShowCart, userData,cartShopping, setCartShopping }) => {
 
 
     const [user, setUser] = useState({});
+    const [saveButton, setSaveButton] = useState(false);
+    const [shoppingCartButton, setShoppingCartButton] = useState(false);
 
     const getUserData = useCallback(async (id) => {
         const data = await getUserById(id);
@@ -40,11 +42,18 @@ const OrderAside = ({showCart,setShowCart, userData}) => {
         setShowCart(!showCart);
     }
 
-    const showTotal = () => {
+    const showTotal = (value) => {
         let total = 0;
-        user?.cart?.forEach((item) => {
-            total += item.price * item.quantity;
-        });
+        if(value === 'shoppingCart'){
+            cartShopping?.map((item) => {
+                total += item.price * item.quantity;
+            })
+        }else{
+            user.cart?.map((item) => {
+                total += item.price * item.quantity;
+            })
+        }
+        
         return total;
     };
 
@@ -74,6 +83,23 @@ const OrderAside = ({showCart,setShowCart, userData}) => {
 
     }
 
+    //if click on save button show saved by user else show cart
+    const filterButton = () => {
+        setSaveButton(!saveButton);
+        setShoppingCartButton(!shoppingCartButton);
+    }
+
+    const handleRemove = (id) => {
+        const newCart = cartShopping.map((item) => {
+            return item.id === id ? {...item, quantity: item.quantity - 1} : item;
+        }
+        );
+        const newCart2 = newCart.filter((item) => item.quantity > 0);
+        setCartShopping(newCart2);
+        //save to local storage
+        localStorage.setItem('cart', JSON.stringify(newCart2));
+        
+    }
 
 
 
@@ -91,6 +117,15 @@ const OrderAside = ({showCart,setShowCart, userData}) => {
             <p className="title fs-5">My order</p>
             </div>
 
+            <div className="d-flex justify-content-between">
+
+            
+                <button className="primary-button" onClick={filterButton}>
+                    saved by user
+                </button>
+
+            </div>
+
                 <div className="my-order-content">
                     <ul className = 'd-flex justify-content-around tag-list'>
                     <li>image</li>
@@ -101,7 +136,9 @@ const OrderAside = ({showCart,setShowCart, userData}) => {
                     </ul>
               <>
                 <section className='order-list'>
-                      {user?.cart?.map((item) => (
+                    {
+                        //save button is true show saved by user user.cart.map else show cart cartShopping.map
+                        saveButton ? cartShopping?.map((item) => (
 
                         <div className="shopping-cart" key={item.id}>
                             <figure>
@@ -110,9 +147,22 @@ const OrderAside = ({showCart,setShowCart, userData}) => {
                             <p>{ `${item.title.slice(0, 10)}...`}</p>
                             <p>{ item.price}</p>
                             <p>{ item.quantity}</p>
-                            <img className='close-icon' src={closeIcon}  alt="close" onClick={() => deleteItem(item.id)}/>
+                            <img className='close-icon' src={closeIcon}  alt="close" onClick={() => handleRemove(item.id)}/>
                         </div>
-                        ))}
+                    )) : user?.cart?.map((item) => (
+                        <div className="shopping-cart" key={item.id}>
+                        <figure>
+                        <img src={item.image} alt="product" />
+                        </figure>
+                        <p>{ `${item.title.slice(0, 10)}...`}</p>
+                        <p>{ item.price}</p>
+                        <p>{ item.quantity}</p>
+                        <img className='close-icon' src={closeIcon}  alt="close" onClick={() => deleteItem(item.id)}/>
+                    </div>
+                    ))
+                    }
+
+
             
                 </section>
                 </>
@@ -122,7 +172,7 @@ const OrderAside = ({showCart,setShowCart, userData}) => {
                         <p>
                         <span>Total</span>
                         </p>
-                        <p>${Math.round(showTotal() * 100) / 100} MXN</p>
+                        {saveButton ? <p>{showTotal('shoppingCart')}</p> : <p>{showTotal('userCart')}</p>}
                     </div>
 
                     <button className="primary-button">

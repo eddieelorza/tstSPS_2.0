@@ -117,14 +117,14 @@ const CardList = () => {
 
         }, [cart, userData])
 
-        console.log(userData)
+        console.log(cart)
 
 
 
 
     return (
         <>
-        <Navbar userData={userData} setUserData={setUserData}/>
+        <Navbar userData={userData} setUserData={setUserData} cartShopping = {cart} isLogged={isLogged} setIsLogged={setIsLogged} setCartShopping={setCart}/>
         <div className="container py-5 my-5">
            
             <SearchBar searchProducts={searchProducts} />

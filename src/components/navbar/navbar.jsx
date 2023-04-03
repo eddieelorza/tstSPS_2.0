@@ -10,7 +10,7 @@ import {getUserById } from '../../api/api.js';
 
 
 
-const Navbar = ({ userData }) => {
+const Navbar = ({ userData, cartShopping, setCartShopping }) => {
     const [showCart, setShowCart] = useState(true);
     const [showMenu, setShowMenu] = useState(false);
 
@@ -65,7 +65,7 @@ const Navbar = ({ userData }) => {
 
     const totalOfProducts = () => {
         let total = 0;
-        user?.cart?.forEach((item) => {
+        cartShopping?.forEach((item) => {
             total += item.quantity;
         });
         return total;
@@ -111,7 +111,7 @@ const Navbar = ({ userData }) => {
                 </div>
                 
             </div>
-            <OrderAside showCart={showCart} setShowCart={setShowCart} userData={userData}/>
+            <OrderAside showCart={showCart} setShowCart={setShowCart} userData={userData} cartShopping={cartShopping} setCartShopping={setCartShopping} />
          
         </nav> 
 
